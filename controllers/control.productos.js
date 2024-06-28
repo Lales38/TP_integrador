@@ -3,8 +3,7 @@ import { procesarFiltros } from "../helpers/filtrosProductos.js";
 
 //get('/api/productos')
 export const obtenerProductosGET = async (req, res) => {
-  //res.send("Hello all the galaxy !!!!");
-
+  
   let { consulta, values } = procesarFiltros(req.query);
 
   try {

@@ -15,9 +15,11 @@
             border: 1px solid #ccc;
             padding: 20px;
             border-radius: 5px;
+            flex-wrap: wrap;
         }
         aside {
             width: 15%;
+            margin: 15px;
         }
         section {
             width: 85%;
@@ -115,7 +117,7 @@
             // por cada producto, creo un bloque de código HTML y lo SUMO al bloque de código que se mostrará
             html += `
                   <div class="card">
-                      <h2>${producto.nombre}</h2>
+                      <h2>${producto.nombreZapas}</h2>
                       <p>${producto.descripcion}</p>
                       <strong>u$s ${producto.precio}</strong>
                       <small>Stock: ${producto.stock} unidades</small>

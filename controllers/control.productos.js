@@ -63,30 +63,36 @@ export const obtenerProductoIdGET = async (req, res) => {
 export const upDateProductoPOST = async (req, res) => {
   const id = req.params.id;
   const updateProducto = req.body;
-  console.log("el contenido de req.body es :", updateProducto);
-  
-  console.log("el contenido nombreZapas es: ", updateProducto.nombreZapas)
-  const consulta = "SELECT * FROM productos WHERE idproductos = ?;";
-  console.log("el id es :", id);
-  console.log("La consulta es :", consulta);
-  const actualizar =
-    "UPDATE productos SET nombreZapas = ? ,descripcion = ?, precio = ?, stock = ?, imagen = ?, fk_categoria = ? WHERE idproductos = ? ;";
-  console.log("La consulta para actualizar es: ", actualizar);
+
   try {
     const connection = await pool.getConnection();
-    const [result] = await connection.query(consulta, id);
-    
-    connection.release();
-    if (result.affectedRows === 0) {
-      res.status(404).json({ message: "User not found" });
+
+    // Consulta para seleccionar el producto por ID
+    const consulta = "SELECT * FROM productos WHERE idproductos = ?;";
+    const [result] = await connection.query(consulta, [id]);
+
+    if (result.length === 0) {
+      res.status(404).json({ message: "Producto no encontrado" });
     } else {
-      const connection = await pool.getConnection();
-      const [result] = await connection.query(actualizar, [updateProducto.nombreZapas, updateProducto.descripcion, updateProducto.precio, updateProducto.stock, updateProducto.imagen, updateProducto.fk_categoria, id]);
-      connection.release();
-      res.json({ message: "User UpDate successfully" });
+      // Consulta para actualizar el producto
+      const actualizar =
+        "UPDATE productos SET nombreZapas = ?, descripcion = ?, precio = ?, stock = ?, imagen = ?, fk_categoria = ? WHERE idproductos = ?;";
+      await connection.query(actualizar, [
+        updateProducto.nombreZapas,
+        updateProducto.descripcion,
+        updateProducto.precio,
+        updateProducto.stock,
+        updateProducto.imagen,
+        updateProducto.fk_categoria,
+        id,
+      ]);
+
+      res.json({ message: "Producto actualizado correctamente" });
     }
+
+    connection.release();
   } catch (err) {
-    console.error("Error executing query: ", err);
+    console.error("Error ejecutando la consulta: ", err);
     res.sendStatus(500);
   }
 };

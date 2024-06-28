@@ -6,27 +6,27 @@ export const procesarFiltros = (query) => {
     let values = [];
   
     if (filtros.nombre) {
-      whereClause += ` nombre LIKE '%${filtros.nombre}%'`;
+      whereClause += ` nombreZapas LIKE '%${filtros.nombre}%' AND`;
     }
     if (filtros.descripcion) {
-      whereClause += `AND descripcion LIKE '%${filtros.descripcion}%' `;
+      whereClause += ` descripcion LIKE '%${filtros.descripcion}%' AND`;
     }
     if (filtros.precioMin) {
-      whereClause += `AND precio <= ? `;
+      whereClause += ` precio <= ? AND`;
       values.push(filtros.precioMin);
     }
     if (filtros.precioMax) {
-      whereClause += `AND precio <= ? `;
+      whereClause += ` precio <= ? AND`;
       values.push(filtros.precioMax);
     }
     if (whereClause !== "") {
       consulta += " WHERE ";
-      consulta += whereClause;
+      consulta += whereClause.slice(0,-3);
     }
     if (filtros.orden) {
       consulta += ` ORDER BY precio ${filtros.orden}`;
     }
-   // console.log(consulta);
+   console.log(consulta);
   
     return { consulta, values };
   };

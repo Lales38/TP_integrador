@@ -27,7 +27,7 @@ router.post("/api/productos", upload.single("imagen"), crearProductoPOST);
 
 router.get("/api/producto/:id", obtenerProductoIdGET);
 
-router.post("/api/producto/update/:id", upDateProductoPOST);
+router.post("/api/producto/update/:id",upload.single("imagen"), upDateProductoPOST);
 
 router.post("/api/producto/borrar/:id", deleteProductoGET);
 

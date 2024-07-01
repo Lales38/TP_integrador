@@ -16,8 +16,9 @@ app.use(express.urlencoded({ extended: false }));
 //Rutas
 app.use("/", rutasProductos);
 app.use("/", rutasUsuarios);
-app.use("/", rutaHtml);
-
+app.get('/', (req, res) => {
+  res.render('showProductos'); // Renderiza la vista showProductos.html
+});
 app.listen(port, () => {
   console.log(`El servidor está corriendo en el puerto: ${port}, un lujo!!`);
 });

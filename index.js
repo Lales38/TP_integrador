@@ -14,8 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //Rutas
-app.get('/api/public/', (req, res) => {
-  res.sendFile(__dirname + 'showProductos.html');
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/showProductos.html');
 });
 app.use("/", rutasProductos);
 app.use("/", rutasUsuarios);

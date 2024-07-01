@@ -31,8 +31,6 @@ router.post("/api/producto/update/:id",upload.single("imagen"), upDateProductoPO
 
 router.post("/api/producto/borrar/:id", deleteProductoGET);
 
-router.get('/api/public/', (req, res) => {
-  res.sendFile(__dirname + '/public/showProductos.html');
-});
+
 
 export default router;

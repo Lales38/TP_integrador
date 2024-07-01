@@ -31,4 +31,6 @@ router.post("/api/producto/update/:id",upload.single("imagen"), upDateProductoPO
 
 router.post("/api/producto/borrar/:id", deleteProductoGET);
 
+
+
 export default router;

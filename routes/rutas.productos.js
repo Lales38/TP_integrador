@@ -31,6 +31,8 @@ router.post("/api/producto/update/:id",upload.single("imagen"), upDateProductoPO
 
 router.post("/api/producto/borrar/:id", deleteProductoGET);
 
-
+router.get('/api/public', (req, res) => {
+  res.render('showProductos'); // Renderiza la vista showProductos.html
+});
 
 export default router;

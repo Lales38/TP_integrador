@@ -15,14 +15,7 @@ export const obtenerProductosGET = async (req, res) => {
     res.status(500).send("Hubo un error al consultar la base de datos");
   }
 };
-/**
-export const crearProductoPOST = async (req, res) => {
-  const newProducto = req.body; // Toma la información del texto
-  console.log("El contenido de req.body es:", req.body);
-  console.log("El resultado del archivo es:", req.file);
-  newProducto.imagen = req.file.filename; // Toma la información del archivo
 
- */
 
 //post('/api/productos')
 export const crearProductoPOST = async (req, res) => {
@@ -31,7 +24,7 @@ export const crearProductoPOST = async (req, res) => {
   const newProducto = req.body; //toma la info del texto
   console.log("el contenido de req.body es: ", req.body);
   console.log("el resultado del file es :", req.file);
-  newProducto.imagen = req.file.filename; //toma la info archivo
+  newProducto.imagen = req.file.fieldname; //toma la info archivo
 
   try {
     const connection = await pool.getConnection();
@@ -66,7 +59,7 @@ export const obtenerProductoIdGET = async (req, res) => {
   }
 };
 
-//post('/api/producto/upDate/:id')
+//post('/api/producto/update/:id')
 export const upDateProductoPOST = async (req, res) => {
   const id = req.params.id;
   const updateProducto = req.body;

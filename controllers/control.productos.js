@@ -3,7 +3,6 @@ import { procesarFiltros } from "../helpers/filtrosProductos.js";
 
 //get('/api/productos')
 export const obtenerProductosGET = async (req, res) => {
-  
   let { consulta, values } = procesarFiltros(req.query);
 
   try {
@@ -16,26 +15,34 @@ export const obtenerProductosGET = async (req, res) => {
     res.status(500).send("Hubo un error al consultar la base de datos");
   }
 };
+/**
+export const crearProductoPOST = async (req, res) => {
+  const newProducto = req.body; // Toma la información del texto
+  console.log("El contenido de req.body es:", req.body);
+  console.log("El resultado del archivo es:", req.file);
+  newProducto.imagen = req.file.filename; // Toma la información del archivo
+
+ */
 
 //post('/api/productos')
 export const crearProductoPOST = async (req, res) => {
   //res.json({ body: req.body, file: req.file });
 
   const newProducto = req.body; //toma la info del texto
-  console.log("el contenido de req.body es: ", req.body)
+  console.log("el contenido de req.body es: ", req.body);
+  console.log("el resultado del file es :", req.file);
   newProducto.imagen = req.file.filename; //toma la info archivo
 
   try {
     const connection = await pool.getConnection();
-    const [result] = await connection.query(
-      "INSERT INTO productos SET ?",
-      newProducto
-    );
-    console.log(" el resultado es :",(result));
+    const [result] = await connection.query("INSERT INTO productos SET ?", [
+      newProducto,
+    ]);
+    console.log(" el resultado es :", result);
     connection.release();
     res.send("Productos insertados correctamente");
   } catch (error) {
-    console.error("Hubo un error al consultar la base de datos", error);
+    console.error("Hubo un error al consultar la base de datos, por cargar", error);
     res.status(500).send("Hubo un error al consultar la base de datos");
   }
 };
@@ -63,6 +70,8 @@ export const obtenerProductoIdGET = async (req, res) => {
 export const upDateProductoPOST = async (req, res) => {
   const id = req.params.id;
   const updateProducto = req.body;
+  console.log("El id es: ", id);
+  console.log("el req.body es : ", updateProducto);
 
   try {
     const connection = await pool.getConnection();
@@ -70,7 +79,7 @@ export const upDateProductoPOST = async (req, res) => {
     // Consulta para seleccionar el producto por ID
     const consulta = "SELECT * FROM productos WHERE idproductos = ?;";
     const [result] = await connection.query(consulta, [id]);
-
+    console.log("el resultado de la consulta es: ", result);
     if (result.length === 0) {
       res.status(404).json({ message: "Producto no encontrado" });
     } else {

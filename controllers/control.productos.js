@@ -101,7 +101,7 @@ export const upDateProductoPOST = async (req, res) => {
 
 // Delete producto
 //"/api/producto/borrar/:idproductos"
-export const deleteProductoGET = async (req, res) => {
+export const deleteProductoPOST = async (req, res) => {
   const id = req.params.id;
   const consulta = "SELECT * FROM productos WHERE idproductos = ?;";
   console.log("el id es :", id);

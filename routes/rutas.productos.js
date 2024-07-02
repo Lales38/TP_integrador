@@ -7,7 +7,7 @@ import {
   crearProductoPOST,
   obtenerProductoIdGET,
   upDateProductoPOST,
-  deleteProductoGET,
+  deleteProductoPOST,
 } from "../controllers/control.productos.js";
 
 // Middleware para cargar archivos
@@ -31,6 +31,6 @@ router.get("/api/producto/:id", obtenerProductoIdGET);
 
 router.post("/api/producto/update/:id", upDateProductoPOST);
 
-router.post("/api/producto/borrar/:id", deleteProductoGET);
+router.post("/api/producto/borrar/:id", deleteProductoPOST);
 
 export default router;

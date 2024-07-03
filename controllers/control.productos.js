@@ -72,7 +72,7 @@ export const upDateProductoPOST = async (req, res) => {
     // Consulta para seleccionar el producto por ID
     const consulta = "SELECT * FROM productos WHERE idproductos = ?;";
     const [result] = await connection.query(consulta, [id]);
-    console.log("el resultado de la consulta es: ", result);
+   
     if (result.length === 0) {
       res.status(404).json({ message: "Producto no encontrado" });
     } else {

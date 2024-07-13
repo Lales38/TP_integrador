@@ -4,7 +4,6 @@ import { procesarFiltros } from "../helpers/filtrosProductos.js";
 //get('/api/productos')
 export const obtenerProductosGET = async (req, res) => {
   let { consulta, values } = procesarFiltros(req.query);
-
   try {
     const connection = await pool.getConnection();
     const [row] = await connection.query(consulta, values);
@@ -15,17 +14,13 @@ export const obtenerProductosGET = async (req, res) => {
     res.status(500).send("Hubo un error al consultar la base de datos");
   }
 };
-
-
 //post('/api/productos')
 export const crearProductoPOST = async (req, res) => {
   //res.json({ body: req.body, file: req.file });
-
   const newProducto = req.body; //toma la info del texto
   console.log("el contenido de req.body es: ", req.body);
   console.log("el resultado del file es :", req.file);
   newProducto.imagen = req.file.fieldname; //toma la info archivo
-
   try {
     const connection = await pool.getConnection();
     const [result] = await connection.query("INSERT INTO productos SET ?", [
